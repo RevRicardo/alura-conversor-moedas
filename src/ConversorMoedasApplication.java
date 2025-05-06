@@ -1,12 +1,15 @@
+import service.MoedaConversao;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ConversorMoedasApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String azul = "\033[34m";
         String reset = "\033[0m";
 
         Scanner scanner = new Scanner(System.in);
-        int menuOpcao;
+        int opcao;
 
         do {
             System.out.println(azul + """
@@ -14,8 +17,7 @@ public class ConversorMoedasApplication {
                 *   ALURA - ONE                   *
                 *   Sistema Conversor de Moedas   *
                 *---------------------------------*
-                """ + reset
-            );
+                """ + reset);
 
             System.out.println("Selecione a opção de conversão:");
             System.out.println("1. BRL para USD");
@@ -27,12 +29,40 @@ public class ConversorMoedasApplication {
             System.out.println("7. BRL para todas (USD, EUR, AUD)");
             System.out.println("8. Encerrar aplicação");
             System.out.print("Opção: ");
-            menuOpcao = scanner.nextInt();
+            opcao = scanner.nextInt();
 
-        } while (menuOpcao != 8);
+            if (opcao != 8) {
+                System.out.print("Digite o valor a ser convertido: ");
+                double valor = scanner.nextDouble();
+                processarConversao(opcao, valor);
+                System.out.println("\nPressione Enter para continuar...");
+                scanner.nextLine();
+                scanner.nextLine();
+            }
+        } while (opcao != 8);
 
         System.out.println("Aplicação encerrada.");
         scanner.close();
     }
 
+    private static void processarConversao(int opcao, double valor) throws IOException {
+        String baseCurrency = "";
+        String targetCurrency = "";
+
+        switch (opcao) {
+            case 1: baseCurrency = "BRL"; targetCurrency = "USD"; break;
+            case 2: baseCurrency = "USD"; targetCurrency = "BRL"; break;
+            case 3: baseCurrency = "BRL"; targetCurrency = "EUR"; break;
+            case 4: baseCurrency = "EUR"; targetCurrency = "BRL"; break;
+            case 5: baseCurrency = "BRL"; targetCurrency = "AUD"; break;
+            case 6: baseCurrency = "AUD"; targetCurrency = "BRL"; break;
+            case 7:
+                MoedaConversao.converter("BRL", "USD", valor);
+                service.MoedaConversao.converter("BRL", "EUR", valor);
+                service.MoedaConversao.converter("BRL", "AUD", valor);
+                return;
+            default: return;
+        }
+        service.MoedaConversao.converter(baseCurrency, targetCurrency, valor);
+    }
 }

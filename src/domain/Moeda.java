@@ -7,6 +7,12 @@ public class Moeda {
     private double taxaConversao;
     private LocalDateTime dataHoraConversao;
 
+    public Moeda(String moedaDestino, double taxa) {
+        this.nomeMoeda = nomeMoeda;
+        this.taxaConversao = taxaConversao;
+        this.dataHoraConversao = dataHoraConversao;
+    }
+
     public String getNomeMoeda() {
         return nomeMoeda;
     }
@@ -17,11 +23,5 @@ public class Moeda {
 
     public LocalDateTime getDataHoraConversao() {
         return dataHoraConversao;
-    }
-
-    public Moeda(String nomeMoeda, double taxaConversao, LocalDateTime dataHoraConversao) {
-        this.nomeMoeda = nomeMoeda;
-        this.taxaConversao = taxaConversao;
-        this.dataHoraConversao = dataHoraConversao;
     }
 }
