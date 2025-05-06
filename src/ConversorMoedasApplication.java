@@ -33,7 +33,6 @@ public class ConversorMoedasApplication {
 
         System.out.println("Aplicação encerrada.");
         scanner.close();
-
     }
 
 }
