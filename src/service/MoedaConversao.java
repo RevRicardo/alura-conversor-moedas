@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class MoedaConversao {
     public static void converter(String moedaBase, String moedaDestino, double valor) throws IOException {
+
         JsonObject jsonObject = MoedaRequest.buscarTaxas(moedaBase);
         JsonObject conversionRates = jsonObject.getAsJsonObject("conversion_rates");
 
